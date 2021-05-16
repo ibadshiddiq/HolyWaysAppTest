@@ -8,9 +8,9 @@ const FormMakeFund = () => {
   const router = useHistory();
   const initialState = {
     title: "",
-    goals: null,
+    goal: null,
     description: "",
-    imageFile: "",
+    thumbnail: "",
   };
 
   const [form, setFormData] = useState(initialState);
@@ -19,16 +19,16 @@ const FormMakeFund = () => {
   };
 
   useEffect(() => {
-    if (!form.imageFile) {
+    if (!form.thumbnail) {
       setPreview(undefined);
       return;
     }
 
-    const objectUrl = URL.createObjectURL(form.imageFile);
+    const objectUrl = URL.createObjectURL(form.thumbnail);
     setPreview(objectUrl);
 
     return () => URL.revokeObjectURL(objectUrl);
-  }, [form.imageFile]);
+  }, [form.thumbnail]);
 
   const onChange = (e) => {
     setFormData({
@@ -47,9 +47,9 @@ const FormMakeFund = () => {
       };
       const formData = new FormData();
       formData.set("title", form.title);
-      formData.set("goals", form.goals);
+      formData.set("goals", form.goal);
       formData.set("description", form.description);
-      formData.append("imageFile", form.imageFile, form.imageFile.name);
+      formData.append("imageFile", form.thumbnail[0], form.thumbnail[0].name);
       await API.post(`/fund`, formData, config);
       clearState();
       router.push("/raisefund");
@@ -80,7 +80,7 @@ const FormMakeFund = () => {
         />
         <Row>
           <Col xs={4.5}>
-            {form.imageFile && (
+            {form.thumbnail && (
               <Image
                 style={{ maxWidth: "300px", height: "230px" }}
                 src={preview}
@@ -93,7 +93,7 @@ const FormMakeFund = () => {
             <label className="custom-file-upload btn-primary btn btn-block mt-4">
               <input
                 onChange={(e) => onChange(e)}
-                name="imageFile"
+                name="thumbnail"
                 type="file"
               />
               <div>Attach Thumbnail</div>
