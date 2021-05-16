@@ -23,6 +23,39 @@ exports.getUser = async (req, res) => {
   }
 };
 
+exports.getUserDetail = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const data = await users.findOne({
+      where: {
+        id,
+      },
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      },
+    });
+
+    if (!data) {
+      return res.send({
+        status: "failed",
+        message: "data not found",
+      });
+    }
+
+    res.status(200).send({
+      status: "success",
+      data: { users: data },
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      status: "failed",
+      message: "server error",
+    });
+  }
+};
+
 exports.deleteUser = async (req, res) => {
   const { id } = req.params;
 

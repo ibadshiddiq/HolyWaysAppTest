@@ -8,7 +8,7 @@ const Profile = () => {
 
   const loadTodos = async () => {
     try {
-      const response = await API.get(`/userss`);
+      const response = await API.get(`/userss/:id`);
       setProfile(response.data.data.users);
     } catch (error) {
       console.log(error);

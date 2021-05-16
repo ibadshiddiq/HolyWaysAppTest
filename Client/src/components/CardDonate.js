@@ -26,26 +26,26 @@ const CardDonate = ({ donateList, tes }) => {
   };
 
   return (
-    <Card className="kartu" style={{ width: "18rem", height: "26rem" }}>
+    <Card className="cardkartu" style={{ width: "18rem", height: "26rem" }}>
       {tes == "viewFund" ? (
         <Card.Img
           style={{ cursor: "pointer", width: "288", height: "218px" }}
           onClick={goToViewFund}
-          src={thumbnail}
+          src={`http://localhost:5000/uploads/${thumbnail}`}
           alt="img"
         />
       ) : !state.isLogin ? (
         <Card.Img
           style={{ cursor: "pointer", width: "288", height: "218px" }}
           onClick={handleLoginModalBuka}
-          src={thumbnail}
+          src={`http://localhost:5000/uploads/${thumbnail}`}
           alt="img"
         />
       ) : (
         <Card.Img
           style={{ cursor: "pointer", width: "288", height: "218px" }}
           onClick={goToDetailPage}
-          src={thumbnail}
+          src={`http://localhost:5000/uploads/${thumbnail}`}
           alt="img"
         />
       )}
@@ -75,15 +75,12 @@ const CardDonate = ({ donateList, tes }) => {
             width: "84%",
           }}
         >
-          <ProgressBar
-            style={{ height: "0.3rem" }}
-            variant="danger"
-            now={(totaldonation * 100) / goal}
-          />
+          <div className="progress-bar">
+            <div className="red-team"></div>
+            {/* <div className='grey-team'></div> */}
+          </div>
           <Card.Text className="d-flex justify-content-between mt-3 ">
-            <div className="dana">
-              {!totaldonation ? "Rp. 0" : convertToRupiah(totaldonation)}
-            </div>
+            <div className="dana">{convertToRupiah(goal)}</div>
             {tes == "viewFund" ? (
               <Button onClick={goToViewFund} size="sm">
                 View Fund

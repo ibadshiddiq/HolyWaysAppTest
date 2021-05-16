@@ -458,3 +458,21 @@ div {
   -ms-overflow-style: none !important;
   scrollbar-width: none !important;
 }
+
+.progress-bar {
+  margin-top: 15px;
+  background-color: grey;
+  height: 5px;
+  border-radius: 10px;
+}
+
+.progress-bar .red-team {
+  background-color: #c32424;
+  height: 5px;
+  width: 75%;
+  border-radius: 10px;
+}
+
+.cardkartu {
+  top: 20px;
+}
