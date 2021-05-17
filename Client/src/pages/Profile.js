@@ -1,20 +1,21 @@
-import { useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Row, Col, Container, Figure, Card } from "react-bootstrap";
 import { API } from "../config/api";
 import { convertToRupiah } from "../utils";
+import { UserContext } from "../contexts/userContext";
 
 const Profile = () => {
   const [profile, setProfile] = useState([]);
-
-  const loadTodos = async () => {
+  const [state, dispatch] = useContext(UserContext);
+  const loadTodos = async (id) => {
     try {
-      const response = await API.get(`/userss/:id`);
+      const response = await API.get(`/userss/` + id);
       setProfile(response.data.data.users);
     } catch (error) {
       console.log(error);
     }
   };
-
+  console.log(state);
   useEffect(() => {
     loadTodos();
   }, []);
@@ -38,7 +39,7 @@ const Profile = () => {
             >
               Full Name
             </Card.Text>
-            <Card.Text>{profile?.name}</Card.Text>
+            <Card.Text>{state.user.fullName}</Card.Text>
           </div>
           <div className="mb-4">
             <Card.Text

@@ -8,8 +8,9 @@ import { convertToRupiah } from "../utils";
 const DetailDonate = ({ detailDonate, approvedDonation }) => {
   const { title, thumbnail, totaldonation, goal, description } = detailDonate;
 
-  const { name, donateAmout, updatedAt } = approvedDonation;
-
+  if (approvedDonation) {
+    const { name, donateAmout, updatedAt } = approvedDonation;
+  }
   const [state, dispatch] = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -27,8 +28,8 @@ const DetailDonate = ({ detailDonate, approvedDonation }) => {
       <Row>
         <Col md="auto">
           <Image
-            style={{ height: "445px", width: "582.73px" }}
-            src={thumbnail}
+            style={{ height: "500px", width: "550px" }}
+            src={`http://localhost:5000/uploads/${thumbnail}`}
             rounded
           />
         </Col>
@@ -64,11 +65,10 @@ const DetailDonate = ({ detailDonate, approvedDonation }) => {
                 </Col>
               </Card.Text>
 
-              <ProgressBar
-                style={{ height: "0.32rem" }}
-                variant="danger"
-                now={(totaldonation * 100) / goal}
-              />
+              <div className="progress-bar">
+                <div className="red-team"></div>
+                {/* <div className='grey-team'></div> */}
+              </div>
 
               <Card.Text className="d-flex d-flex justify-content-between">
                 <div>
@@ -113,33 +113,34 @@ const DetailDonate = ({ detailDonate, approvedDonation }) => {
           overflow: "scroll",
         }}
       >
-        {approvedDonation.map((donatur) => (
-          <Card style={{ width: "auto", marginBottom: "10px" }}>
-            <Card.Body
-              style={{
-                marginLeft: "16px",
-                marginTop: "15px",
-                marginBottom: "20px",
-              }}
-            >
-              <Card.Title className="mb-4 b font-weight-bold">
-                {donatur.name}
-              </Card.Title>
-              <Card.Subtitle className="mb-4 text-muted">
-                {donatur.updatedAt}
-              </Card.Subtitle>
-              <Card.Text
+        {approvedDonation &&
+          approvedDonation.map((donate) => (
+            <Card style={{ width: "auto", marginBottom: "10px" }}>
+              <Card.Body
                 style={{
-                  color: "rgba(151, 74, 74, 1)",
-                  fontWeight: "bold",
+                  marginLeft: "16px",
+                  marginTop: "15px",
+                  marginBottom: "20px",
                 }}
-                className="mb-0 font-weight-bold"
               >
-                Total : {convertToRupiah(donatur.donateAmout)}
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        ))}
+                <Card.Title className="mb-4 b font-weight-bold">
+                  {donate.name}
+                </Card.Title>
+                <Card.Subtitle className="mb-4 text-muted">
+                  {donate.updatedAt}
+                </Card.Subtitle>
+                <Card.Text
+                  style={{
+                    color: "rgba(151, 74, 74, 1)",
+                    fontWeight: "bold",
+                  }}
+                  className="mb-0 font-weight-bold"
+                >
+                  Total : {convertToRupiah(donate.donateAmout)}
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          ))}
       </div>
     </>
   );

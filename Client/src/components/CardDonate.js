@@ -80,7 +80,7 @@ const CardDonate = ({ donateList, tes }) => {
             {/* <div className='grey-team'></div> */}
           </div>
           <Card.Text className="d-flex justify-content-between mt-3 ">
-            <div className="dana">{convertToRupiah(goal)}</div>
+            <div className="dana">{goal && convertToRupiah(goal)}</div>
             {tes == "viewFund" ? (
               <Button onClick={goToViewFund} size="sm">
                 View Fund

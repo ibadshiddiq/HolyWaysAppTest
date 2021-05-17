@@ -9,23 +9,23 @@ const ModalDonate = () => {
   const [state, dispatch] = useContext(UserContext);
   const [preview, setPreview] = useState();
   const initialState = {
-    amount: "",
-    imageFile: "",
+    donateAmout: "",
+    proofAttachment: "",
   };
 
   const [form, setForm] = useState(initialState);
 
   useEffect(() => {
-    if (!form.imageFile) {
+    if (!form.proofAttachment) {
       setPreview(undefined);
       return;
     }
 
-    const objectUrl = URL.createObjectURL(form.imageFile);
+    const objectUrl = URL.createObjectURL(form.proofAttachment);
     setPreview(objectUrl);
 
     return () => URL.revokeObjectURL(objectUrl);
-  }, [form.imageFile]);
+  }, [form.proofAttachment]);
 
   const clearState = () => {
     setForm({ ...initialState });
@@ -53,10 +53,10 @@ const ModalDonate = () => {
         },
       };
       const formData = new FormData();
-      formData.set("amount", form.amount);
-      formData.append("imageFile", form.imageFile, form.imageFile.name);
+      formData.set("donateAmout", form.donateAmout);
+      formData.append("proofAttachment", form.proofAttachment);
 
-      await API.post(`/donate/${state.modalDonateId}`, formData, config);
+      await API.post(`/donate`);
       handleDonateModalTutup();
       setPreview(undefined);
       setForm(initialState);
@@ -73,31 +73,33 @@ const ModalDonate = () => {
         handleDonateModalTutup();
         clearState();
         setPreview(undefined);
-      }}>
+      }}
+    >
       <Modal.Body>
         <Form
           onSubmit={(e) => {
             e.preventDefault();
             handleSubmit(e);
-          }}>
+          }}
+        >
           <Form.Control
             onChange={(e) => onChange(e)}
-            name='amount'
-            value={form.amount}
-            type='number'
-            placeholder='Nominal Donation'
+            name="donateAmout"
+            value={form.donateAmout}
+            type="number"
+            placeholder="Nominal Donation"
           />
           <Row>
             <Col xs={4.5}>
-              <label className='custom-file-upload btn-primary btn btn-block'>
+              <label className="custom-file-upload btn-primary btn btn-block">
                 <input
                   onChange={(e) => onChange(e)}
-                  name='imageFile'
-                  type='file'
+                  name="proofAttachment"
+                  type="file"
                 />
                 <div>
                   Attach Payment
-                  <Image className='ml-2 ' src='/Group 14.svg'></Image>
+                  <Image className="ml-2 " src="/Group 14.svg"></Image>
                 </div>
               </label>
             </Col>
@@ -106,11 +108,11 @@ const ModalDonate = () => {
               *transfers can be made to holyways accounts
             </Col>
           </Row>
-          <Row className='w-100'>
-            {form.imageFile && <Image className='w-100' src={preview} />}
+          <Row className="w-100">
+            {form.proofAttachment && <Image className="w-100" src={preview} />}
           </Row>
 
-          <Button className='mt-5' type='submit' block variant='primary'>
+          <Button className="mt-5" type="submit" block variant="primary">
             Donate
           </Button>
         </Form>

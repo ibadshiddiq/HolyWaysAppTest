@@ -46,7 +46,7 @@ const Detaildonate = () => {
     });
   };
   const approvedDonation = detailDonate?.donationList?.filter(
-    (donatur) => donatur.status !== "Pending"
+    (donate) => donate.status !== "Pending"
   );
 
   return (

@@ -7,6 +7,7 @@ const FormMakeFund = () => {
   const [preview, setPreview] = useState();
   const router = useHistory();
   const initialState = {
+    userid: "11",
     title: "",
     goal: null,
     description: "",
@@ -46,10 +47,11 @@ const FormMakeFund = () => {
         },
       };
       const formData = new FormData();
+      formData.set("userid", form.userid);
       formData.set("title", form.title);
       formData.set("goals", form.goal);
       formData.set("description", form.description);
-      formData.append("imageFile", form.thumbnail[0], form.thumbnail[0].name);
+      formData.append("thumbnail", form.thumbnail);
       await API.post(`/fund`, formData, config);
       clearState();
       router.push("/raisefund");
@@ -78,6 +80,7 @@ const FormMakeFund = () => {
           type="text"
           placeholder="Title"
         />
+        <input type="hidden" name="userid" value={form.userid} />
         <Row>
           <Col xs={4.5}>
             {form.thumbnail && (

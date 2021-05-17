@@ -11,3 +11,15 @@ export function convertToRupiah(angka) {
       .join("")
   );
 }
+
+export function getTotal(userDonate) {
+  return userDonate
+    .map((user) => (user.status === "success" ? user.donateAmount : 0))
+    .reduce((total, num) => total + num, 0);
+}
+
+export function getProgress(userDonate, goal) {
+  const total = getTotal(userDonate);
+  const percent = (total / goal) * 100;
+  return percent;
+}

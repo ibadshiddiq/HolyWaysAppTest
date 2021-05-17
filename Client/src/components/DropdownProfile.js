@@ -8,7 +8,7 @@ import { UserContext } from "../contexts/userContext";
 
 const DropdownProfile = () => {
   let { data: navbar } = useQuery("navbar", async () => {
-    const response = await API.get("/userss");
+    const response = await API.get("/userss/:id");
     return response.data.data.users;
   });
   const [, dispatch] = useContext(UserContext);
@@ -22,7 +22,11 @@ const DropdownProfile = () => {
       eventKey={1}
       title={
         <div className="pull-left">
-          <Image className="navbar-img" src={navbar?.thumbnail} roundedCircle />
+          <Image
+            className="navbar-img"
+            src="/profile-navbar.svg"
+            roundedCircle
+          />
         </div>
       }
       id="basic-nav-dropdown"

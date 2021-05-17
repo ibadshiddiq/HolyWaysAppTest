@@ -40,6 +40,7 @@ const ModalLogin = () => {
         type: "LOGIN_SUCCESS",
         payload: response.data.data.user,
       });
+      console.log(response.data.data.user);
       setForm(initialState);
     } catch (error) {
       console.log(error);
@@ -60,7 +61,7 @@ const ModalLogin = () => {
 
   return (
     <Modal
-      size='sm'
+      size="sm"
       centered
       show={state.isVisibleLogin}
       onHide={() => {
@@ -70,49 +71,52 @@ const ModalLogin = () => {
           email: "",
           password: "",
         });
-      }}>
+      }}
+    >
       <Modal.Body>
         <Modal.Title>Login</Modal.Title>
-        <div className='body'>
+        <div className="body">
           <Form
             onSubmit={(e) => {
               e.preventDefault();
               handleSubmit(e);
-            }}>
+            }}
+          >
             {message && (
-              <Alert className='text-center' variant={"danger"}>
+              <Alert className="text-center" variant={"danger"}>
                 {message}
               </Alert>
             )}
             <Form.Control
               onChange={(e) => onChange(e)}
-              name='email'
-              type='email'
+              name="email"
+              type="email"
               value={email}
-              placeholder='Email'
+              placeholder="Email"
               required
             />
             <Form.Control
               onChange={(e) => onChange(e)}
-              name='password'
-              type='password'
+              name="password"
+              type="password"
               value={password}
-              placeholder='Password'
+              placeholder="Password"
               required
             />
-            <Button block type='submit' size='lg'>
+            <Button block type="submit" size="lg">
               Login
             </Button>
           </Form>
         </div>
-        <div className='mt-2 d-flex justify-content-center'>
+        <div className="mt-2 d-flex justify-content-center">
           Don't have an account? Click
           <p
-            className='here ml-1'
+            className="here ml-1"
             onClick={() => {
               handleLoginModalTutup();
               handleRegisterModalBuka();
-            }}>
+            }}
+          >
             <b>Here</b>
           </p>
         </div>

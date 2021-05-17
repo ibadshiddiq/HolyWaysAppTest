@@ -20,10 +20,16 @@ const { regitrasi, login } = require("../controllers/auth");
 router.post("/register", regitrasi);
 router.post("/login", login);
 
-const { getUser, getUserDetail, deleteUser } = require("../controllers/user");
+const {
+  getUser,
+  getUserDetail,
+  deleteUser,
+  updateProfile,
+} = require("../controllers/user");
 router.get("/userss", auth, getUser);
 router.get("/userss/:id", getUserDetail);
 router.delete("/userss/:id", deleteUser);
+router.put("/userss/:id", uploadFile("thumbnail"), updateProfile);
 
 const {
   getFund,
